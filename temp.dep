@@ -1,0 +1,4 @@
+moduleA: moduleB
+moduleB: moduleC
+moduleC: moduleA
+moduleD: moduleC
