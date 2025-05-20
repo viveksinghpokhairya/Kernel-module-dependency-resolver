@@ -21,17 +21,17 @@ void topologicalSort(
     unordered_map<string, int>& inDegree
 ) {
     queue<string> q;
-
+    int count = 0;
     for (const auto& entry : inDegree) {
         if (entry.second == 0)
             q.push(entry.first);
     }
 
-    cout << "\nModule Load Order with Dependencies:\n\n";
+    cout << "\nModule Loading Order with Dependencies:\n\n";
     while (!q.empty()) {
         string module = q.front();
         q.pop();
-        // cout << getFilenameOnly(module);
+        count++;
         cout << getFilenameOnly(module);
         for (const string& dep : graph[module]) {
             cout << " ---> " << getFilenameOnly(dep);
@@ -41,10 +41,13 @@ void topologicalSort(
         }
         cout << endl;
     }
+    if (count != graph.size()) {
+        cout << "Error: Cycle detected in dependencies.\n";
+    }
 }
 
 int main() {
-    ifstream file("sample.dep");
+    ifstream file("temp.dep");
     if (!file.is_open()) {
         cerr << "Error: Could not open sample.dep file.\n";
         return 1;
@@ -59,7 +62,6 @@ int main() {
         string module, dep;
         getline(iss, module, ':');
         vector<string> dependencies;
-        cout << module << 
         while (iss >> dep) {
             dependencies.push_back(dep);
             inDegree[dep]++;
@@ -77,7 +79,7 @@ int main() {
     // }
     file.close();
 
-    // topologicalSort(graph, inDegree);
+    topologicalSort(graph, inDegree);
 
     return 0;
 }

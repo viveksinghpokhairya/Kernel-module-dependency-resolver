@@ -1,4 +1,1 @@
-moduleA: moduleB
-moduleB: moduleC
-moduleC: moduleA
-moduleD: moduleC
+kernel/arch/x86/crypto/twofish-x86_64-3way.ko.zst: kernel/arch/x86/crypto/twofish-x86_64.ko.zst kernel/crypto/twofish_common.ko.zst kernel/arch/x86/crypto/twofish-x86_64-3way.ko.zst
