@@ -9,7 +9,11 @@ using namespace std;
 
 string getFilenameOnly(const string& path) {
     size_t pos = path.find_last_of('/');
-    return (pos != string::npos) ? path.substr(pos + 1) : path;
+    if (pos != string::npos) {
+        return path.substr(pos + 1);
+    } else {
+        return path;
+    }
 }
 
 void topologicalSort(
@@ -55,7 +59,7 @@ int main() {
         string module, dep;
         getline(iss, module, ':');
         vector<string> dependencies;
-
+        cout << module << 
         while (iss >> dep) {
             dependencies.push_back(dep);
             inDegree[dep]++;
@@ -65,15 +69,15 @@ int main() {
 
         graph[module] = dependencies;
     }
-    for(auto ele : graph){
-        for(auto itr : ele){
-            cout << itr << " ";
-        } 
-        cout << endl;
-    }
+    // for(auto ele : graph){
+    //     for(auto itr : ele){
+    //         cout << itr << " ";
+    //     } 
+    //     cout << endl;
+    // }
     file.close();
 
-    topologicalSort(graph, inDegree);
+    // topologicalSort(graph, inDegree);
 
     return 0;
 }
